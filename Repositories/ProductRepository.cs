@@ -37,7 +37,7 @@ namespace ProductReview.Repositories
             return _context.Products.OrderBy(p => p.Id).ToList();
         }
 
-        public bool ProductExist(int id)
+        public bool ProductExists(int id)
         {
             return _context.Products.Any(p => p.Id == id);
         }

@@ -8,7 +8,7 @@ namespace ProductReview.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -35,8 +35,8 @@ namespace ProductReview.Controllers
         [ProducesResponseType(200, Type = typeof(Product))]
         [ProducesResponseType(404)]
         public IActionResult GetProductById(int productId) {
-            var productExists = _productRepository.ProductExist(productId);
-            if (!productExists) return NotFound();
+            var productExists = _productRepository.ProductExists(productId);
+            if (!productExists) return NotFound("Product not found");
 
             var product = _mapper.Map<ProductDto>(_productRepository.GetProductById(productId));
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -49,14 +49,14 @@ namespace ProductReview.Controllers
         [ProducesResponseType(404)]
         public IActionResult GetProductRating(int productId)
         {
-            var productExists = _productRepository.ProductExist(productId);
+            var productExists = _productRepository.ProductExists(productId);
             if (!productExists) return NotFound();
 
             var product = _productRepository.GetProductRating(productId);
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             return Ok(product);
-        }
 
+        }
     }
 }

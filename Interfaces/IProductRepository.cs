@@ -8,6 +8,6 @@ namespace ProductReview.Interfaces
         Product GetProductById(int id);
         Product GetProductByName(string name);
         decimal GetProductRating(int id);
-        bool ProductExist(int id);
+        bool ProductExists(int id);
     }
 }
